@@ -26,6 +26,12 @@
           <form method="post" action="/game-in-progress?gameId=<%= gameId %>">
             <input type="hidden" name="gameId" value="<%= gameId %>">
             <input type="hidden" name="resetWinner" value="1">
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
             <p>Le carte del dealer:</p>
             <div class="cards-row">
               <% for (const card of gameState.dealerCards) { %>
@@ -40,6 +46,12 @@
           <form method="post" action="/game-in-progress?gameId=<%= gameId %>">
             <input type="hidden" name="gameId" value="<%= gameId %>">
             <input type="hidden" name="resetWinner" value="1">
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
             <p>Le carte del dealer:</p>
             <div class="cards-row">
               <% for (const card of gameState.dealerCards) { %>
@@ -54,6 +66,12 @@
           <form method="post" action="/game-in-progress?gameId=<%= gameId %>">
             <input type="hidden" name="gameId" value="<%= gameId %>">
             <input type="hidden" name="resetWinner" value="1">
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
             <p>Le carte del dealer:</p>
             <div class="cards-row">
               <% for (const card of gameState.dealerCards) { %>
@@ -77,6 +95,12 @@
                 },
               });
             </script>
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
             <p>Le carte del dealer:</p>
             <div class="cards-row">
               <% for (const card of gameState.dealerCards) { %>
@@ -102,8 +126,10 @@
             <input type="hidden" name="gameId" value="<%= gameId %>">
             <div class="button-row">
               <button class="button" type="submit" name="action" value="hit">Hit</button>
-              <button class="button" type="submit" name="action" value="stand">Stay</button>
-              <% if (gameState.playerCards.length === 2 && gameState.playerMoney >= gameState.playerBet) { %>
+              <% if (gameState.playerCards.length >= 2) { %>
+              	<button class="button" type="submit" name="action" value="stand">Stay</button>
+							<% } %>
+              <% if (gameState.playerCards.length === 2 && gameState.playerMoney >= gameState.bet) { %>
                 <button class="button" type="submit" name="action" value="double">Double</button>
               <% } %>
             </div>
@@ -137,3 +163,4 @@
   </div>
 </body>
 </html>
+

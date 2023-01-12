@@ -130,15 +130,21 @@ app.post('/player-action', (req, res) => {
 
   // Gestione blackjack
   if (gameState.playerCards.length === 2 && getScore(gameState.playerCards) === 21) {
+		gameState.dealerCards.push(getRandomCard());
+		gameState.dealerCards.push(getRandomCard());
+		if(gameState.dealerCards.length === 2 && getScore(gameState.dealerCards) === 21) {
+			gameState.winner = 'tie';
+			gameState.playerMoney = gameState.playerMoney + parseInt(gameState.bet);
+		}
     gameState.winner = 'player';
-    gameState.playerMoney = gameState.playerMoney + parseInt(gameState.bet * 2);
+    gameState.playerMoney = gameState.playerMoney + parseInt(gameState.bet * 2.5);
   }
 
   // Gestione double
   if (action === 'double') {
     gameState.playerCards.push(getRandomCard()); // Dai carta al giocatore
+		gameState.playerMoney = gameState.playerMoney - parseInt(gameState.bet);
     gameState.bet = gameState.bet * 2;
-    gameState.playerMoney = gameState.playerMoney - parseInt(gameState.bet);
     // Controlla se il giocatore ha sballato
     if (isBusted(gameState.playerCards)) {
       gameState.winner = 'dealer';
